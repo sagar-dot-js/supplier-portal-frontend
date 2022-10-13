@@ -36,34 +36,58 @@ const Dashboard = () => {
     },
   ];
 
+  let projectCardData = [
+    {
+      title: "Total Projects",
+      subTitle: "344",
+    },
+    {
+      title: "Total Surveys",
+      subTitle: "344",
+    },
+    {
+      title: "Live",
+      subTitle: "344",
+    },
+    {
+      title: "Approved",
+      subTitle: "344",
+    },
+  ];
+
   let invoiceCardData = [
     {
       title: "Robas RFQ",
       InvoiceId: "9898CKKL",
+      date: "23/05/2022",
       totalAmt: "123324",
       Countries: "4",
     },
     {
       title: "Robas RFQ",
       InvoiceId: "9898CKKL",
+      date: "23/05/2022",
       totalAmt: "123324",
       Countries: "4",
     },
     {
       title: "Robas RFQ",
       InvoiceId: "9898CKKL",
+      date: "23/05/2022",
       totalAmt: "123324",
       Countries: "4",
     },
     {
       title: "Robas RFQ",
       InvoiceId: "9898CKKL",
+      date: "23/05/2022",
       totalAmt: "123324",
       Countries: "4",
     },
     {
       title: "Robas RFQ",
       InvoiceId: "9898CKKL",
+      date: "23/05/2022",
       totalAmt: "123324",
       Countries: "4",
     },
@@ -101,13 +125,13 @@ const Dashboard = () => {
       <div className=" custom-px w-full flex flex-col gap-10">
         <Modal showModal={showModal} setShowModal={setShowModal}>
           <ModalContent>
-            <div className="w-[400px] h-[400px]  ">
+            <div className="w-[500px] h-[440px]  ">
               <div className=" flex items-end gap-5">
                 <div>
                   <p className="text-[#000000] font-[400] text-[18px]">
                     Robas RFQ
                   </p>
-                  <p className="text-[#1765DC] font-[600] text-[18px]">
+                  <p className="text-[#1765DC] font-[600] text-[18px]    ">
                     1000789
                   </p>
                 </div>
@@ -119,54 +143,87 @@ const Dashboard = () => {
               <div className=" pl-[100px]">
                 <table className="modal-table">
                   <tr>
-                    <td> 1000789</td>
+                    <td>
+                      <p className="text-[#1765DC] font-[600] text-[24px]">
+                        {" "}
+                        1000785
+                      </p>
+                      <p className="text-[#1765DC] text-[13px]">Cuba</p>
+                    </td>
                     <td>
                       <Button
                         onClick={(e) => console.log("its working", e)}
                         variant="outlined"
                         customWidth="200px"
                       >
-                        Outlined Button
+                        Generate Report
                       </Button>
                     </td>
                   </tr>
                   <tr>
-                    <td> 1000789</td>
+                    <td>
+                      {" "}
+                      <p className="text-[#1765DC] font-[600] text-[24px]">
+                        {" "}
+                        1000789{" "}
+                      </p>{" "}
+                      <p className="text-[#1765DC] text-[13px] ">India</p>
+                    </td>
                     <td>
                       <Button
                         onClick={(e) => console.log("its working", e)}
                         variant="outlined"
                         customWidth="200px"
                       >
-                        Outlined Button
+                        Generate Report
                       </Button>
                     </td>
                   </tr>
                   <tr>
-                    <td> 1000789</td>
+                    <td>
+                      {" "}
+                      <p className="text-[#1765DC] font-[600] text-[24px]">
+                        1000789{" "}
+                      </p>
+                      <p className="text-[#1765DC] text-[13px]">LATAM</p>
+                    </td>
                     <td>
                       <Button
                         onClick={(e) => console.log("its working", e)}
                         variant="outlined"
                         customWidth="200px"
                       >
-                        Outlined Button
+                        Generate Report
                       </Button>
                     </td>
                   </tr>
                   <tr>
-                    <td> 1000789</td>
+                    <td>
+                      {" "}
+                      <p className="text-[#1765DC] font-[600] text-[24px]">
+                        {" "}
+                        1000789
+                      </p>{" "}
+                      <p className="text-[#1765DC] text-[13px]">
+                        Bosnia & Herzegovina
+                      </p>
+                    </td>
                     <td>
                       <Button
                         onClick={(e) => console.log("its working", e)}
                         variant="outlined"
                         customWidth="200px"
                       >
-                        Outlined Button
+                        Generate Report
                       </Button>
                     </td>
                   </tr>
                 </table>
+              </div>
+              <div className="">
+                <Button variant="filled" className="ml-[200px]">
+                  Generate Full Project Report
+                </Button>
               </div>
             </div>
           </ModalContent>
@@ -179,18 +236,9 @@ const Dashboard = () => {
                 <p className="text-[16px] text-[#8CB5F3]">
                   Welcome to{" "}
                   <span className="text-[#1765DC]"> Mirats Supplier</span>{" "}
-                  Dashboard, switch to
-                  <span className="text-[#1765DC]"> Analytics </span> view for
-                  deeper insights{" "}
+                  Dashboard
                 </p>
               </div>
-              <Button
-                onClick={(e) => console.log("its working", e)}
-                variant="outlined"
-                customWidth="200px"
-              >
-                Analytics View
-              </Button>
             </div>
           </div>
           <div className=" w-[60%] flex justify-end items-start">
@@ -206,9 +254,10 @@ const Dashboard = () => {
             <div className="flex gap-4 items-center ">
               <p className="text-[#333333] text-[24px]"> RFQs</p>
               <Link
-                color="blue"
+                to="/viewRFQs"
                 border="underline"
-                href="https://scalablecss.com/styled-components-global-styles/"
+                // className="text-[#5C96EE]"
+                color="#1765dc"
               >
                 View All
               </Link>
@@ -220,14 +269,14 @@ const Dashboard = () => {
                     <div className="w-[234px]">
                       <DisplayCard
                         customWidth="200px"
-                        cardHeader="Card Header1"
-                        cardBody="Card Body"
+                        cardHeader={item.title}
+                        cardBody={item.subTitle}
                       />
                     </div>
                   );
                 })}
               </div>
-              <div className="w-[60%] ">
+              <div className="w-[60%]">
                 {" "}
                 <RecentFAQCard />
               </div>
@@ -238,23 +287,19 @@ const Dashboard = () => {
 
         <div className="flex flex-col gap-5 ">
           <div className="flex gap-4 items-center ">
-            <p className="text-[#333333] text-[24px]"> Projects</p>
-            <Link
-              color="blue"
-              border="underline"
-              href="https://scalablecss.com/styled-components-global-styles/"
-            >
+            <p className="text-[#333333] text-[24px]">Projects</p>
+            <Link to="/project" border="underline" color="#1765dc">
               View All
             </Link>
           </div>
           <div className="flex">
-            {rfqsCardData.map((item, ind) => {
+            {projectCardData.map((item, ind) => {
               return (
                 <div className="w-[234px]">
                   <DisplayCard
                     customWidth="200px"
-                    cardHeader="Card Header1"
-                    cardBody="Card Body"
+                    cardHeader={item.title}
+                    cardBody={item.subTitle}
                   />
                 </div>
               );
@@ -266,7 +311,8 @@ const Dashboard = () => {
           <div className="flex gap-4 items-center ">
             <p className="text-[#333333] text-[24px]"> Invoice</p>
             <Link
-              color="blue"
+              to="/invoice"
+              color="#1765dc"
               border="underline"
               href="https://scalablecss.com/styled-components-global-styles/"
             >
@@ -275,7 +321,7 @@ const Dashboard = () => {
           </div>
           <div className="flex justify-between">
             {invoiceCardData.map((item, ind) => {
-              return <InvoiceCard />;
+              return <InvoiceCard data={item} />;
             })}
           </div>
         </div>
@@ -284,7 +330,8 @@ const Dashboard = () => {
           <div className="flex gap-4 items-center ">
             <p className="text-[#333333] text-[24px]"> Reports</p>
             <Link
-              color="#5C96EE"
+              to="/report-log"
+              color="#1765dc"
               border="underline"
               href="https://scalablecss.com/styled-components-global-styles/"
             >

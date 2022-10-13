@@ -31,14 +31,15 @@ let TableRow = [
 const RecentFAQCard = () => {
   return (
     <div className="recent-faq-table-container h-full w-full ">
-      <div className="w-[70%]  flex gap-3 flex-col">
+      <div className="w-full flex gap-3 flex-col">
         <p className="text-[#1765DC] text-[16px]">Recent RFQs</p>
-        <table className="recent-faq-table">
+        <table id="recent-faq-table">
           <tr>
             <th> ID</th>
             <th> Name</th>
             <th> Status</th>
             <th> Budget</th>
+            <th> Required Samples</th>
           </tr>
           {TableRow.map((item, ind) => {
             return (
@@ -52,6 +53,7 @@ const RecentFAQCard = () => {
                   </Chip>
                 </td>
                 <td> $45667</td>
+                <td>3033</td>
               </tr>
             );
           })}

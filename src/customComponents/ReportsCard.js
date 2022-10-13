@@ -13,7 +13,7 @@ const ReportsCard = ({ openModal }) => {
           border="underline"
           href="https://scalablecss.com/styled-components-global-styles/"
         >
-          <p className="text-[#1765DC] ">View All </p>
+          <p className="text-[#1765DC] ">View Log </p>
         </Link>
 
         <Button
@@ -21,7 +21,7 @@ const ReportsCard = ({ openModal }) => {
           variant="outlined"
           customWidth="200px"
         >
-          Outlined Button
+          Generate Report
         </Button>
       </div>
     </div>

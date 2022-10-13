@@ -43,8 +43,8 @@ export const ButtonWrapper = styled.button`
         `;
       } else if (props.variant === "outlined") {
         return css`
-          color: #1765dc;
-          border: 2px solid #1765dc;
+          color: #1765DC;
+          border: 2px solid #1765DC;
           background-color: transparent;
         `;
       }

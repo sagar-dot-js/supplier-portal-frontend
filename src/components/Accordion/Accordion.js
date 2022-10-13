@@ -6,10 +6,16 @@ import {
   AccordionTitle,
   AccordionTitleContainer,
   AccordionWrapper,
+  Body,
+  Content,
+  Header,
   Icon,
+  Item,
+  Title,
 } from "./Accordion.style";
 import { RiArrowDownSLine } from "react-icons/ri";
-import { useState } from "react";
+import { useState, useContext, createContext } from "react";
+import {IoIosArrowDown} from "react-icons/io"
 
 const data = [
   {
@@ -29,8 +35,12 @@ const data = [
   },
 ];
 
+const ToggleContext = createContext();
+
 export default function Accordion({ children, ...restProps }) {
-    console.log(children)
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  console.log(children);
   //   const [selected, setSelected] = useState(null);
 
   //   const toggle = (i) => {
@@ -61,24 +71,50 @@ export default function Accordion({ children, ...restProps }) {
     //   </AccordionContainer>
     // </AccordionWrapper>
 
-    <AccordionContainer {...restProps}>{children}</AccordionContainer>
+    <>
+      {children.map((child, index) => (
+        <ToggleContext.Provider
+          key={index}
+          value={{ index, activeIndex, setActiveIndex }}
+        >
+          <AccordionContainer {...restProps}>{child}</AccordionContainer>
+        </ToggleContext.Provider>
+      ))}
+    </>
   );
 }
 
-// Accordion.Item = function AccordionItem({children, ...restProps}) {
-//     return (
-//         <Item {...restProps}>{children}</Item>
-//     )
-// }
+Accordion.Item = function AccordionItem({ children, ...restProps }) {
+  const {activeIndex, setActiveIndex, index} = useContext(ToggleContext);
+  return <Item activeIndex={activeIndex} setActiveIndex={setActiveIndex} index={index}   {...restProps}>{children}</Item>;
+};
 
-// Accordion.Title = function AccordionTitle({children, ...restProps}) {
-//     return (
-//         <Title {...restProps}>{children}</Title>
-//     )
-// }
+Accordion.Header = function AccordionHeader({ children, ...restProps }) {
+  const { activeIndex, setActiveIndex, index } = useContext(ToggleContext);
 
-// Accordion.Content = function AccordionContent({children, ...restProps}) {
-//     return (
-//         <Content {...restProps}>{children}</Content>
-//     )
-// }
+  return (
+    <Header onClick={() => setActiveIndex(index)} {...restProps}>
+      {children}
+    </Header>
+  );
+};
+
+Accordion.Icon = function AccordionIcon ({children, ...restProps}) {
+  return <Icon {...restProps}>{children}</Icon>
+}
+
+Accordion.Title = function AccordionTitle({ children, ...restProps }) {
+  return <Title {...restProps}>{children}</Title>;
+};
+
+Accordion.Body = function AccordionBody({ children, ...restProps }) {
+  const {index, activeIndex} = useContext(ToggleContext)
+
+  let isActive = index === activeIndex
+
+  return isActive ? <Body {...restProps}>{children}</Body> : null;
+};
+
+Accordion.Content = function AccordionContent({ children, ...restProps }) {
+  return <Content {...restProps}>{children}</Content>;
+};

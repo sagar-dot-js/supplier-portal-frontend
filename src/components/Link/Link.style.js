@@ -15,7 +15,7 @@ export const LinkWrapper = styled(Link)`
     // default link
     if (props.border === "underline") {
       return css`
-        border-bottom: 1px solid #5c96ee;
+        border-bottom: 1px solid black;
       `;
     }
     // none

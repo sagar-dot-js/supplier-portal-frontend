@@ -12,27 +12,44 @@ import {
 import { FiChevronDown } from "react-icons/fi";
 import { MdKeyboardArrowUp } from "react-icons/md";
 
-const options = [
-  "Information Technology Decision Maker Survey",
-  "Some big text for dropdown option select ",
-  "Oranges",
-];
-
-const Dropdown = ({ ...restProps }) => {
+const Dropdown = ({
+  options: options,
+  dropdownText,
+  label,
+  value,
+  onChange,
+  ...restProps
+}) => {
   const [isOpen, setIsOpen] = useState(false);
+  // console.log(options);
   const toggling = () => setIsOpen(!isOpen);
   const [selectedOption, setSelectedOption] = useState(null);
 
-  const onOptionClicked = (value) => () => {
+  const onOptionClicked = (value) => {
+    console.log(value);
     setSelectedOption(value);
     setIsOpen(false);
     console.log(selectedOption);
   };
 
+  console.log(selectedOption);
+
+  const [dvalue, setDValue] = useState("");
+  // const handleDataSave = (e, value) => {
+  //   setDValue(e.target.value);
+  // };
+
+  console.log(dvalue);
+
+  // const handleListChange = (e, value) => {
+  //   // setDValue(e, value)
+  //   onChange(e);
+  // };
+
   return (
     <DropdownContainer {...restProps}>
       <DropdownHeaderContainer onClick={toggling}>
-        <DropdownHeader>{selectedOption || "Select"}</DropdownHeader>
+        <DropdownHeader>{selectedOption || dropdownText}</DropdownHeader>
         <IconWrapper>
           {isOpen ? <MdKeyboardArrowUp /> : <FiChevronDown />}
         </IconWrapper>
@@ -41,9 +58,21 @@ const Dropdown = ({ ...restProps }) => {
         <DropdownListContainer>
           <DropdownList>
             {options.map((option) => (
-              <ListItem onClick={onOptionClicked(option)}>{option}</ListItem>
+              <ListItem
+                value={option?.value}
+                onClick={() => {
+                  onChange(option?.value);
+                  onOptionClicked(option?.label);
+                }}
+              >
+                {option.label}
+              </ListItem>
             ))}
           </DropdownList>
+
+          {/* {options.map((option) => (
+              <ListItem onClick={onOptionClicked(option)}>{option}</ListItem>
+            ))} */}
         </DropdownListContainer>
       )}
     </DropdownContainer>

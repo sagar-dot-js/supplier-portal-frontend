@@ -1,10 +1,110 @@
-import React from "react";
+import React, { useState } from "react";
+import { BiCaretDown, BiCaretDownCircle } from "react-icons/bi";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
+import { TbEdit } from "react-icons/tb";
 import Button from "../components/Button";
+import Chip from "../components/Chips/Chip";
 import DisplayCard from "../components/DisplayCard/DisplayCard";
 import RecentFAQCard from "../customComponents/RecentFAQCard";
+import styles from "../components/CollapseTable/CollapseTable.module.css";
+
+const collapseData = [
+  {
+    id: 1,
+    level: "Crystal",
+    supplierName: "Supp1",
+    supplierNum: "#10000324",
+    allocation: 328,
+    avgCpi: 13,
+    totalBudget: 900,
+    allocationStatus: "Approved",
+    emailSent: "Sent",
+    countries: [
+      {
+        id: 111,
+        level: "Gold",
+        countryName: "japan",
+        tg: [
+          {
+            level: "Silver",
+            targetGroupName: "tg1",
+          },
+          {
+            level: "Silver",
+            targetGroupName: "tg2",
+          },
+        ],
+      },
+      {
+        id: 222,
+        level: "Gold",
+        countryName: "usa",
+        tg: [
+          {
+            level: "Silver",
+            targetGroupName: "tg3",
+          },
+          {
+            level: "Silver",
+            targetGroupName: "tg1",
+          },
+        ],
+      },
+      {
+        id: 333,
+        level: "Gold",
+        countryName: "india",
+      },
+    ],
+  },
+  {
+    id: 2,
+    level: "Crystal",
+    supplierName: "supp2",
+    supplierNum: "#10000159",
+    countries: [
+      {
+        id: 121,
+        level: "Gold",
+        countryName: "country3",
+        tg: [
+          {
+            level: "Silver",
+            targetGroupName: "tg1111",
+          },
+          {
+            level: "Silver",
+            targetGroupName: "tg2222",
+          },
+        ],
+      },
+      {
+        id: 131,
+        level: "Gold",
+        countryName: "country4",
+        tg: [
+          {
+            level: "Silver",
+            targetGroupName: "tg3333",
+          },
+          {
+            level: "Silver",
+            targetGroupName: "tg4444",
+          },
+        ],
+      },
+      {
+        id: 141,
+        level: "Gold",
+        countryName: "country3",
+      },
+    ],
+  },
+];
 
 const ViewRFQs = () => {
+  const [open, setOpen] = useState([]);
+
   let rfqsCardData = [
     {
       title: "Total RFQs",
@@ -23,6 +123,7 @@ const ViewRFQs = () => {
       subTitle: "344",
     },
   ];
+
   return (
     <div className=" custom-px w-full flex flex-col gap-10">
       <div className="flex justify-between text-[#8CB5F3]">
@@ -39,7 +140,7 @@ const ViewRFQs = () => {
             Next <br />
             RFQ
           </p>{" "}
-          <MdOutlineArrowBackIosNew className="text-[30px] rotate-180" />
+          <MdOutlineArrowBackIosNew className="text-[30px] rotate-180 -z-10" />
         </div>
       </div>
       <div className="flex gap-10 text-[14px]">
@@ -85,115 +186,272 @@ const ViewRFQs = () => {
           })}
         </div>
       </div>
-      <div className="flex flex-col gap-5 ">
-        <div className="flex gap-4 items-center justify-between pr-[290px]">
-          <p className="text-[#333333] text-[24px]"> Countries</p>
-          <p className="text-[#333333] text-[24px]"> Project Documents</p>
+      <div className="flex  py-[20px] justify-between items-center">
+        <div>
+          <p className="text-[#333333] text-[24px]">
+            Your Current Quote{" "}
+            <span className="text-[#5C96EE] text-[12px]">
+              If Rejected hover on country to know the reason
+            </span>
+          </p>{" "}
         </div>
-        <div className="flex gap-[50px] h-[100px] ">
-          <div className=" w-[60%] h-full">
-            <div className="w-full h-full ">
-              <table className="contries-table ">
-                <tr>
-                  <td> Countries</td>
-                  <td> CuTarget Sampleba</td>
-                  <td> Length of Interviewa</td>
-                  <td> Incidence Rate</td>
-                </tr>
-                <tr>
-                  <td> Cuba</td>
-                  <td>32 N</td>
-                  <td> 23 Minutes</td>
-                  <td> 65.00%</td>
-                </tr>
-              </table>
-            </div>
-          </div>
-          <div className="w-[40%] flex flex-col gap-2 justify-between ">
-            <div className="flex gap-4 justify-between">
-              <div className="bg-[#F4F4F4] w-full rounded-md flex items-center p-3">
-                Filename.png
-              </div>{" "}
-              <Button
-                onClick={(e) => console.log("its working", e)}
-                variant="outlined"
-                customWidth="200px"
-              >
-                View
-              </Button>
-            </div>
-            <div className="flex gap-4 justify-between">
-              <div className="bg-[#F4F4F4] w-full rounded-md flex items-center p-3">
-                Filename.png
-              </div>{" "}
-              <Button
-                onClick={(e) => console.log("its working", e)}
-                variant="outlined"
-                customWidth="200px"
-              >
-                View
-              </Button>
-            </div>
-          </div>
+        <div>
+          <Button variant="filled">Edit Quote</Button>
         </div>
       </div>
-      <div className=" h-[323px] flex flex-col gap-5">
-        <p className="text-[#333333] text-[24px]"> Description</p>
-        <div className="flex gap-[50px] h-full">
-          <div className="bg-[#F4F4F4] h-full w-[60%] rounded-[8px] p-5">
-            Testing opportunity after changing the database
-          </div>
-          <div className="w-[40%] flex flex-col gap-5">
+      <div>
+        <div className={styles.collapse_table}>
+          <table className={styles.collapse_table_container}>
+            <thead>
+              <tr>
+                <th>
+                  <input type="checkbox" />
+                </th>
+                <th>
+                  Supplier {">"} country {">"} Target audience
+                </th>
+                <th>Allocation</th>
+                <th>Avg cpi</th>
+                <th>Total Budget</th>
+                <th>Allocation Status</th>
+                <th>Email Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {collapseData?.map((data) => {
+                let suppId = data?.id;
+                return (
+                  <>
+                    <tr>
+                      <td>
+                        <input type="checkbox" />
+                      </td>
+                      <td
+                        onClick={() => {
+                          if (!open.includes(suppId)) {
+                            setOpen((prevArr) => [...prevArr, suppId]);
+                          } else {
+                            setOpen((prevArr) => {
+                              return prevArr.filter((id) => id !== suppId);
+                            });
+                          }
+                        }}
+                      >
+                        <div className={styles.flex}>
+                          <span className={styles.icon}>
+                            <BiCaretDown />
+                          </span>
+                          <span>
+                            {" "}
+                            {data?.supplierName} (ID{data.supplierNum})
+                          </span>
+                        </div>
+                      </td>
+                      <td>1455</td>
+                      <td>20</td>
+                      <td>900</td>
+                      <td>
+                        <Chip variant="filled" color="success">
+                          Approved
+                        </Chip>
+                      </td>
+                      <td>
+                        <Chip variant="outlined" color="success">
+                          Sent
+                        </Chip>
+                      </td>
+                      <td>
+                        <TbEdit />
+                      </td>
+                    </tr>
+
+                    {open.includes(suppId) && (
+                      <>
+                        {data?.countries?.map((country) => {
+                          let countryId = country?.id;
+                          if (!open.includes(countryId)) {
+                            return (
+                              <tr>
+                                <td>
+                                  <input type="checkbox" />
+                                </td>
+                                <td
+                                  style={{ paddingLeft: "2em" }}
+                                  onClick={() =>
+                                    setOpen((prevArr) => [
+                                      ...prevArr,
+                                      countryId,
+                                    ])
+                                  }
+                                >
+                                  <div className={styles.flex}>
+                                    <span className={styles.icon}>
+                                      <BiCaretDown />
+                                    </span>
+                                    <span>{country?.countryName}</span>
+                                  </div>
+                                </td>
+                                <td>1455</td>
+                                <td>20</td>
+                                <td>900</td>
+                                <td>
+                                  <Chip variant="filled" color="success">
+                                    Approved
+                                  </Chip>
+                                </td>
+                                <td>
+                                  <Chip variant="outlined" color="success">
+                                    Sent
+                                  </Chip>
+                                </td>
+                                <td>
+                                  <TbEdit />
+                                </td>
+                              </tr>
+                            );
+                          } else {
+                            return (
+                              <>
+                                <tr>
+                                  <td>
+                                    <input type="checkbox" />
+                                  </td>
+                                  <td
+                                    style={{ paddingLeft: "2em" }}
+                                    onClick={() =>
+                                      setOpen((prevArr) => {
+                                        return prevArr.filter(
+                                          (id) => id != countryId
+                                        );
+                                      })
+                                    }
+                                  >
+                                    <div className={styles.flex}>
+                                      <span className={styles.icon}>
+                                        <BiCaretDown />
+                                      </span>
+                                      <span>{country?.countryName}</span>
+                                    </div>
+                                  </td>
+                                  <td>1455</td>
+                                  <td>20</td>
+                                  <td>900</td>
+                                  <td>
+                                    <Chip variant="filled" color="success">
+                                      Approved
+                                    </Chip>
+                                  </td>
+                                  <td>
+                                    <Chip variant="outlined" color="success">
+                                      Sent
+                                    </Chip>
+                                  </td>
+                                  <td>
+                                    <TbEdit />
+                                  </td>
+                                </tr>
+                                {country?.tg?.map((target) => {
+                                  return (
+                                    <tr>
+                                      <td>
+                                        <input type="checkbox" />
+                                      </td>
+                                      <td style={{ paddingLeft: "3.5em" }}>
+                                        {target?.targetGroupName}
+                                      </td>
+                                      <td>1455</td>
+                                      <td>20</td>
+                                      <td>900</td>
+                                      <td>
+                                        <Chip variant="filled" color="success">
+                                          Approved
+                                        </Chip>
+                                      </td>
+                                      <td>
+                                        <Chip
+                                          variant="outlined"
+                                          color="success"
+                                        >
+                                          Sent
+                                        </Chip>
+                                      </td>
+                                      <td>
+                                        <TbEdit />
+                                      </td>
+                                    </tr>
+                                  );
+                                })}
+                              </>
+                            );
+                          }
+                        })}
+                      </>
+                    )}
+                  </>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div className="h-[400px] w-full flex ">
+        <div className="w-[70%] h-full ">
+          <p className="text-[#333333] text-[24px] mb-5 ">Description </p>
+          <textarea
+            placeholder="Testing opportunity after changing the database"
+            className="w-[70%] h-[323px] rounded-[8px] border p-5 outline-none"
+          ></textarea>
+        </div>
+        <div className="w-[30%] h-full ">
+          <p className="text-[#333333] text-[24px] mb-5 ">Project Documents </p>
+          <div className="flex flex-col gap-4">
+            <div className="flex h-[48px] gap-3">
+              <input
+                type="text"
+                placeholder="Filename.png"
+                className="border w-[80%] bg-[#F4F4F4] p-3 rounded-[8px]  "
+              />
+              <button className="w-[20%] border-2 rounded-[8px] border-[#1765DC] text-[#1765DC] font-[600]">
+                View
+              </button>
+            </div>
+            <div className="flex h-[48px] gap-3">
+              <input
+                type="text"
+                placeholder="Filename.png"
+                className="border w-[80%] bg-[#F4F4F4] p-3 rounded-[8px]  "
+              />
+              <button className="w-[20%] border-2 rounded-[8px] border-[#1765DC] text-[#1765DC] font-[600]">
+                View
+              </button>
+            </div>
             <div>
-              <p className="text-[#161616] text-[24px]"> Target Audience</p>
-              <p className="text-[#333333] text-[16px]">
+              <p className="text-[#333333] text-[24px] mb-5 ">
+                Target Audience{" "}
+              </p>
+              <p className="text-[#333333] text-[18px]">
                 {" "}
                 Customers, Marketers
               </p>
             </div>
             <div>
-              <p className="text-[#161616] text-[24px]"> Sales Co-ordinator</p>
-              <p className="text-[#333333] text-[16px]">Lokeshwaran Naidu</p>
-              <p className="text-[#333333] text-[16px]">
+              <p className="text-[#333333] text-[24px] mb-5 ">
+                Sales Co-ordinator
+              </p>
+              <p className="text-[#333333] text-[18px]">Lokeshwaran Naidu</p>
+              <p className="text-[#333333] text-[18px]">
                 lokeshwaran.naidu@miratsinsights.com
               </p>
-              <p className="text-[#333333] text-[16px]">9619330780</p>
+              <p className="text-[#333333] text-[18px]">9619330780</p>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex gap-5 flex-col">
-        <div className="flex justify-between">
-          <div className="flex gap-4">
-            <p className="text-[#333333] text-[24px] ">Your Current Quote</p>
-            <span className="text-[#5C96EE] text-[14px]">
-              If Rejected hover on country to know the reason
-            </span>
-          </div>
-          <Button
-            className="sagar"
-            onClick={(e) => console.log("its working", e)}
-            variant="filled"
-          >
-            Edit Quote
-          </Button>
-        </div>
-        <div className=" border border-blue-500 h-[300px]"></div>
-      </div>
-      <div className="flex gap-5 flex-col">
-        <div className="flex justify-between">
-          <div className="flex gap-4">
-            <p className="text-[#333333] text-[24px] ">Quotation Changelog</p>
-          </div>
-          {/* <Button
-            className="sagar"
-            onClick={(e) => console.log("its working", e)}
-            variant="filled"
-          >
-            Edit Quote
-          </Button> */}
-        </div>
-        <div className=" border border-blue-500 h-[300px]"></div>
+      <div>
+        <p className="text-[#333333] text-[24px] mb-5 ">Quotation Changelog </p>
+        <div className="h-[303px] border"></div>
       </div>
     </div>
   );

@@ -8,35 +8,30 @@ import Project from "./pages/Project";
 import ReportLog from "./pages/ReportLog";
 import SupportHub from "./pages/SupportHub";
 import Header from "./customComponents/header/Header";
-import SupplierAdminApp from "./pages/SupplierAdminApp";
-import Allocations from "./pages/Allocations";
-import SupplierAdminAppOverview from "./pages/SupplierAdminAppOverview";
 
 function App() {
   return (
-    <>
+    <div className="h-screen w-full">
       <Router>
         <GlobalStyle />
-        <Header />
-        <Routes>
-          <Route path="/test" element={<Test />} />
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/viewRFQs" element={<ViewRFQs />} />
-          <Route path="/RFQs" element={<Rfqs />} />
-          <Route path="/project" element={<Project />} />
-          <Route path="/report-log" element={<ReportLog />} />
-          <Route path="/support-hub" element={<SupportHub />} />
-          <Route path="/supp-admin-app" element={<SupplierAdminApp />} />
-          <Route path="/allocation" element={<Allocations />} />
-          <Route
-            path="/Supplier-AdminApp-Overview"
-            element={<SupplierAdminAppOverview />}
-          />
-        </Routes>
-        {/* <Test />
+        <div className=" w-full  sticky top-0">
+          <Header />
+        </div>
+        <div className="h-full">
+          <Routes>
+            <Route path="/test" element={<Test />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/viewRFQs" element={<ViewRFQs />} />
+            <Route path="/rfqs" element={<Rfqs />} />
+            <Route path="/project" element={<Project />} />
+            <Route path="/report-log" element={<ReportLog />} />
+            <Route path="/support-hub" element={<SupportHub />} />
+          </Routes>
+          {/* <Test />
           <Dashboard/> */}
+        </div>
       </Router>
-    </>
+    </div>
   );
 }
 

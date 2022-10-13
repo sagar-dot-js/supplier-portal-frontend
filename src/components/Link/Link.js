@@ -1,10 +1,10 @@
 import React from "react";
 import { LinkWrapper } from "./Link.style";
 
-const Link = ({ children, color, border, href, ...restProps }) => {
+const Link = ({ children, color, border, to, ...restProps }) => {
   return (
     <LinkWrapper
-      href={href}
+      to={to}
       color={color}
       border={border}
       {...restProps}

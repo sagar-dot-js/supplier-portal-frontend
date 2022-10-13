@@ -2,7 +2,7 @@ import React from "react";
 import { CardBody, CardHeader, DisplayCardWrapper } from "./DisplayCard.style";
 import PropTypes, { string } from "prop-types";
 
-const DisplayCard = ({ cardHeader, cardBody, customWidth, ...restProps }) => {
+const DisplayCard = ({ cardHeader, cardBody,customWidth, ...restProps  }) => {
   return (
     <DisplayCardWrapper customWidth={customWidth} {...restProps}>
       <CardHeader>{cardHeader}</CardHeader>
@@ -14,7 +14,7 @@ const DisplayCard = ({ cardHeader, cardBody, customWidth, ...restProps }) => {
 DisplayCard.propTypes = {
   cardHeader: string,
   cardBody: string,
-  customWidth: null,
+  customWidth: null
 };
 
 export default DisplayCard;
